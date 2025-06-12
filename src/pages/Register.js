@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../redux/actions/auth-actions";
+import { FiBook } from "react-icons/fi";
 
 function Register() {
 	const dispatch = useDispatch();
@@ -25,18 +26,16 @@ function Register() {
 			className="min-h-screen bg-cover bg-center flex items-center justify-center"
 			style={{ backgroundImage: "url('/bg.jpg')" }}
 		>
-			<div className="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
-
-			<div className="relative z-10 bg-white/90 p-8 rounded-lg shadow-lg w-full max-w-md">
-				<h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
-					Register
+			<div className="relative z-10 bg-white/90 p-8 rounded-2xl shadow-lg w-full max-w-md">
+				<h2 className="text-3xl font-bold text-center text-teal-500 mb-6">
+					Registration
 				</h2>
 
 				<form onSubmit={handleSubmit} className="space-y-4">
 					<input
 						type="text"
 						placeholder="Full Name"
-						className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+						className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-teal-500"
 						value={name}
 						onChange={(e) => setName(e.target.value)}
 						required
@@ -44,7 +43,7 @@ function Register() {
 					<input
 						type="email"
 						placeholder="Email"
-						className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+						className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-teal-500"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						required
@@ -52,13 +51,13 @@ function Register() {
 					<input
 						type="password"
 						placeholder="Password"
-						className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+						className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-teal-500"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						required
 					/>
 
-					{/* 👤 Role Selection */}
+					{/*  Role Selection */}
 					<div>
 						<label className="block text-gray-700 font-semibold mb-2">
 							Select Role:
@@ -72,7 +71,7 @@ function Register() {
 										value={r}
 										checked={role === r}
 										onChange={handleRoleChange}
-										className="text-green-600"
+										className="text-teal-600"
 										defaultChecked={r === "user"}
 									/>
 									<span className="capitalize text-gray-700">{r}</span>
@@ -83,14 +82,15 @@ function Register() {
 
 					<button
 						type="submit"
-						className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
+						className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-sky-500 to-teal-500 text-white px-4 py-2 rounded shadow hover:scale-105 transform transition"
 					>
+						<FiBook className="text-lg" />
 						Register
 					</button>
 				</form>
 				<p className="mt-4 text-sm text-gray-600">
 					Already have an account?{" "}
-					<a href="/login" className="text-green-500 hover:underline">
+					<a href="/login" className="text-teal-500">
 						Login
 					</a>
 				</p>

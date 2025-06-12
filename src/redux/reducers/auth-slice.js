@@ -19,7 +19,7 @@ const authSlice = createSlice({
 			state.user = null;
 			state.token = null;
 			state.isAuthenticated = false;
-			localStorage.removeItem("user");
+			sessionStorage.removeItem("user");
 		},
 	},
 	extraReducers: (builder) => {
@@ -33,7 +33,7 @@ const authSlice = createSlice({
 				state.token = action.payload.token;
 				state.isAuthenticated = true;
 				state.isLoading = false;
-				localStorage.setItem("user", JSON.stringify(action.payload));
+				sessionStorage.setItem("user", JSON.stringify(action.payload.data));
 			})
 			.addCase(loginUser.rejected, (state, action) => {
 				state.error = action.payload;
@@ -49,7 +49,6 @@ const authSlice = createSlice({
 				state.token = action.payload.token;
 				state.isAuthenticated = true;
 				state.isLoading = false;
-				localStorage.setItem("user", JSON.stringify(action.payload));
 			})
 			.addCase(registerUser.rejected, (state, action) => {
 				state.error = action.payload;

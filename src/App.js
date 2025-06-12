@@ -7,7 +7,7 @@ import Contacts from "./pages/Contact";
 
 function App() {
 	return (
-		<div className="min-h-screen flex items-center justify-center bg-gray-100">
+		<div className="w-full h-screen flex flex-col bg-gradient-to-br from-sky-300 via-teal-200 to-green-300">
 			<Routes>
 				<Route path="/" element={<Navigate to="/login" />} />
 				<Route path="/login" element={<Login />} />
