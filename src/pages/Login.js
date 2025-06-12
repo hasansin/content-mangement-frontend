@@ -23,24 +23,24 @@ function Login() {
 			})
 			.catch((error) => {
 				console.error("Login failed:", error);
-				toast.error(" Login failed: " + error.message);
+				toast.error(" Login failed: ");
 			});
 	};
 
 	return (
 		<div
-			className="min-h-screen bg-cover bg-center flex items-center justify-center"
+			className="min-h-screen bg-cover bg-center flex items-center justify-center dark:bg-gray-900"
 			style={{ backgroundImage: "url('/bg.jpg')" }}
 		>
-			<div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
-				<h2 className="text-2xl font-bold mb-6 text-center text-teal-500">
+			<div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-md w-full max-w-md transition-colors">
+				<h2 className="text-2xl font-bold mb-6 text-center text-teal-500 dark:text-teal-400">
 					Login
 				</h2>
 				<form onSubmit={handleSubmit} className="space-y-4">
 					<input
 						type="email"
 						placeholder="Email"
-						className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-teal-500"
+						className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-teal-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						required
@@ -48,7 +48,7 @@ function Login() {
 					<input
 						type="password"
 						placeholder="Password"
-						className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-teal-500 "
+						className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-teal-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						required
@@ -61,9 +61,9 @@ function Login() {
 						Log In
 					</button>
 				</form>
-				<p className="mt-4 text-sm text-gray-600">
+				<p className="mt-4 text-sm text-gray-600 dark:text-gray-300">
 					Don't have an account?{" "}
-					<Link to="/register" className="text-teal-500">
+					<Link to="/register" className="text-teal-500 dark:text-teal-400">
 						Register
 					</Link>
 				</p>

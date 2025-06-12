@@ -1,13 +1,17 @@
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Login from "./pages/login";
+import Register from "./pages/register";
 import "./index.css";
-import Contacts from "./pages/Contact";
-
+import Contacts from "./pages/contacts";
+import ThemeToggle from "./components/theme-toggle";
 function App() {
 	return (
-		<div className="w-full h-screen flex flex-col bg-gradient-to-br from-sky-300 via-teal-200 to-green-300">
+		<div className="w-full h-full  flex flex-col bg-gradient-to-br from-sky-300 via-teal-200 to-green-300">
+			<header className="flex justify-end p-4 dark:bg-gray-900  dark:shadow-lg">
+				<ThemeToggle />
+			</header>
+
 			<Routes>
 				<Route path="/" element={<Navigate to="/login" />} />
 				<Route path="/login" element={<Login />} />

@@ -6,7 +6,11 @@ export default function Modal({ isOpen, onClose, children, title }) {
 	return (
 		<Transition show={isOpen} as={Fragment}>
 			<Dialog as="div" className="relative z-50" onClose={onClose}>
-				<div className="fixed inset-0 bg-black/40" aria-hidden="true" />
+				{/* Overlay */}
+				<div
+					className="fixed inset-0 bg-black/40 dark:bg-black/70"
+					aria-hidden="true"
+				/>
 
 				<div className="fixed inset-0 overflow-y-auto">
 					<div className="flex min-h-full items-center justify-center p-4">
@@ -20,11 +24,13 @@ export default function Modal({ isOpen, onClose, children, title }) {
 							leaveTo="opacity-0 scale-95"
 							show={isOpen}
 						>
-							<DialogPanel className="space-y-6 p-6 bg-white rounded-lg shadow-md w-full max-w-lg mx-auto">
-								<DialogTitle className="text-2xl font-semibold text-center text-teal-500 mb-4">
+							<DialogPanel className="space-y-6 p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md dark:shadow-lg w-full max-w-lg mx-auto border border-gray-200 dark:border-gray-700">
+								<DialogTitle className="text-2xl font-semibold text-center text-teal-500 dark:text-teal-400 mb-4">
 									{title}
 								</DialogTitle>
-								<div className="mt-4">{children}</div>
+								<div className="mt-4 text-gray-800 dark:text-gray-100">
+									{children}
+								</div>
 							</DialogPanel>
 						</Transition>
 					</div>

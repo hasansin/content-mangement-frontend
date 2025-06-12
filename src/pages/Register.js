@@ -23,11 +23,11 @@ function Register() {
 
 	return (
 		<div
-			className="min-h-screen bg-cover bg-center flex items-center justify-center"
+			className="min-h-screen bg-cover bg-center flex items-center justify-center dark:bg-gray-900"
 			style={{ backgroundImage: "url('/bg.jpg')" }}
 		>
-			<div className="relative z-10 bg-white/90 p-8 rounded-2xl shadow-lg w-full max-w-md">
-				<h2 className="text-3xl font-bold text-center text-teal-500 mb-6">
+			<div className="relative z-10 bg-white/90 dark:bg-gray-800/90 p-8 rounded-2xl shadow-lg w-full max-w-md transition-colors">
+				<h2 className="text-3xl font-bold text-center text-teal-500 dark:text-teal-400 mb-6">
 					Registration
 				</h2>
 
@@ -35,7 +35,7 @@ function Register() {
 					<input
 						type="text"
 						placeholder="Full Name"
-						className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-teal-500"
+						className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-teal-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white"
 						value={name}
 						onChange={(e) => setName(e.target.value)}
 						required
@@ -43,7 +43,7 @@ function Register() {
 					<input
 						type="email"
 						placeholder="Email"
-						className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-teal-500"
+						className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-teal-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						required
@@ -51,15 +51,15 @@ function Register() {
 					<input
 						type="password"
 						placeholder="Password"
-						className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-teal-500"
+						className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-teal-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						required
 					/>
 
-					{/*  Role Selection */}
+					{/* Role Selection */}
 					<div>
-						<label className="block text-gray-700 font-semibold mb-2">
+						<label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2">
 							Select Role:
 						</label>
 						<div className="space-y-2">
@@ -72,9 +72,10 @@ function Register() {
 										checked={role === r}
 										onChange={handleRoleChange}
 										className="text-teal-600"
-										defaultChecked={r === "user"}
 									/>
-									<span className="capitalize text-gray-700">{r}</span>
+									<span className="capitalize text-gray-700 dark:text-gray-300">
+										{r}
+									</span>
 								</label>
 							))}
 						</div>
@@ -88,9 +89,10 @@ function Register() {
 						Register
 					</button>
 				</form>
-				<p className="mt-4 text-sm text-gray-600">
+
+				<p className="mt-4 text-sm text-gray-600 dark:text-gray-300">
 					Already have an account?{" "}
-					<a href="/login" className="text-teal-500">
+					<a href="/login" className="text-teal-500 dark:text-teal-400">
 						Login
 					</a>
 				</p>
