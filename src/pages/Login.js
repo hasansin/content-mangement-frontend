@@ -17,12 +17,10 @@ function Login() {
 		const result = dispatch(loginUser({ email, password })).unwrap();
 		result
 			.then((data) => {
-				console.log("Login successful:", data);
 				toast.success("Login successful!");
 				navigate("/contacts");
 			})
 			.catch((error) => {
-				console.error("Login failed:", error);
 				toast.error(" Login failed: ");
 			});
 	};

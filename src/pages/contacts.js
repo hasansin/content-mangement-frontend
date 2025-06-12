@@ -1,28 +1,39 @@
 import { useState, useEffect } from "react";
 import { FiUserPlus, FiLogOut, FiUser } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/reducers/auth-slice";
 import ContactList from "../components/contact-list";
 import ContactForm from "../components/contact-form";
 import Modal from "../components/modal";
 import DeleteConfirm from "../components/delete-confirm";
+import {
+	fetchContacts,
+	addContact,
+	editContact,
+	deleteContact,
+} from "../redux/actions/contact-actions";
 
 const Contact = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
 	const [contacts, setContacts] = useState([]);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [editingContact, setEditingContact] = useState(null);
 	const [deletingContact, setDeletingContact] = useState(null);
-	const [isLoading, setIsLoading] = useState(false);
+
 	const [isEditing, setIsEditing] = useState(false);
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [sortKey, setSortKey] = useState("name");
 	const [sortOrder, setSortOrder] = useState("asc");
 	const [currentPage, setCurrentPage] = useState(1);
+
 	const contactsPerPage = 6;
+
+	const contactStatus = useSelector((state) => state.contacts.status);
+	const contactError = useSelector((state) => state.contacts.error);
 
 	const openEditModal = (contact) => {
 		setEditingContact(contact);
@@ -33,11 +44,60 @@ const Contact = () => {
 	};
 
 	useEffect(() => {
-		// Fetch contacts from API or localStorage if needed
-	}, []);
+		if (contactStatus === "idle") {
+			fetchContactsData();
+		}
+	}, [contactStatus, dispatch]);
 
-	const getContacts = () => {
-		// Call API here
+	const fetchContactsData = () => {
+		dispatch(fetchContacts())
+			.unwrap()
+			.then((data) => {
+				setContacts(data.data || []);
+				console.log("Contacts fetched:", data.data);
+				console.log("Contacts fetched successfully:", data);
+			})
+			.catch((error) => {
+				console.error("Failed to fetch contacts:", error);
+			});
+	};
+
+	const editContactData = (contact) => {
+		dispatch(editContact(contact))
+			.unwrap()
+			.then((updatedContact) => {
+				setContacts((prev) =>
+					prev.map((c) => (c.id === updatedContact.id ? updatedContact : c))
+				);
+				dispatch(fetchContacts());
+			})
+			.catch((error) => {
+				console.error("Failed to update contact:", error);
+			});
+	};
+
+	const addContactData = (contact) => {
+		dispatch(addContact(contact))
+			.unwrap()
+			.then((newContact) => {
+				setContacts((prev) => [...prev, newContact]);
+				dispatch(fetchContacts());
+			})
+			.catch((error) => {
+				console.error("Failed to add contact:", error);
+			});
+	};
+
+	const deleteContactData = (id) => {
+		dispatch(deleteContact(id))
+			.unwrap()
+			.then(() => {
+				setContacts((prev) => prev.filter((c) => c.id !== id));
+				dispatch(fetchContacts());
+			})
+			.catch((error) => {
+				console.error("Failed to delete contact:", error);
+			});
 	};
 
 	const handleAddContact = () => {
@@ -56,18 +116,13 @@ const Contact = () => {
 	const handleSave = (contact) => {
 		if (contact.id) {
 			// Update
-			setContacts((prev) =>
-				prev.map((c) => (c.id === contact.id ? contact : c))
-			);
+			editContactData(contact);
 		} else {
 			// Create
-			const newContact = {
-				...contact,
-				id: Date.now(),
-			};
-			setContacts((prev) => [...prev, newContact]);
+			addContactData(contact);
 		}
 		setIsModalOpen(false);
+		fetchContactsData();
 	};
 
 	const handleDelete = (id) => {
@@ -203,9 +258,9 @@ const Contact = () => {
 					) : (
 						<DeleteConfirm
 							onConfirm={() => {
-								setContacts((prev) =>
-									prev.filter((c) => c.id !== deletingContact)
-								);
+								const id = deletingContact;
+								if (!id) return;
+								deleteContactData(id);
 								setIsModalOpen(false);
 							}}
 							onCancel={() => setIsModalOpen(false)}

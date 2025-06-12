@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../redux/actions/auth-actions";
 import { FiBook } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 function Register() {
 	const dispatch = useDispatch();
@@ -19,6 +20,15 @@ function Register() {
 		const result = dispatch(
 			registerUser({ name, email, password, role })
 		).unwrap();
+		if (result) {
+			toast.success("Registration successful! Please log in.");
+			setEmail("");
+			setPassword("");
+			setName("");
+			setRole("user");
+		} else {
+			toast.error("Registration failed. Please try again.");
+		}
 	};
 
 	return (

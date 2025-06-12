@@ -50,8 +50,7 @@ const ContactList = ({ contacts, onEdit, onDelete }) => {
 						<button
 							aria-label={`Delete contact ${contact.name}`}
 							onClick={() => {
-								if (window.confirm(`Delete ${contact.name}?`))
-									onDelete(contact.id);
+								onDelete(contact.id);
 							}}
 							className="flex items-center gap-2 px-3 py-1.5 rounded-md text-sm text-white bg-gradient-to-r from-red-500 to-rose-400 hover:scale-105 transform transition shadow focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
 							title="Delete"
