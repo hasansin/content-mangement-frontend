@@ -5,6 +5,7 @@ import Register from "./pages/register";
 import "./index.css";
 import Contacts from "./pages/contacts";
 import ThemeToggle from "./components/theme-toggle";
+import ProtectedRoute from "./components/protected-route";
 function App() {
 	return (
 		<div className="w-full h-full  flex flex-col bg-gradient-to-br from-sky-300 via-teal-200 to-green-300">
@@ -16,7 +17,15 @@ function App() {
 				<Route path="/" element={<Navigate to="/login" />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/register" element={<Register />} />
-				<Route path="/contacts" element={<Contacts />} />
+
+				<Route
+					path="/contacts"
+					element={
+						<ProtectedRoute>
+							<Contacts />
+						</ProtectedRoute>
+					}
+				/>
 			</Routes>
 		</div>
 	);
