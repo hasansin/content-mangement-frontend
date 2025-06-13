@@ -17,18 +17,19 @@ function Register() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const result = dispatch(
-			registerUser({ name, email, password, role })
-		).unwrap();
-		if (result) {
-			toast.success("Registration successful! Please log in.");
-			setEmail("");
-			setPassword("");
-			setName("");
-			setRole("user");
-		} else {
-			toast.error("Registration failed. Please try again.");
-		}
+		const result = dispatch(registerUser({ name, email, password, role }))
+			.unwrap()
+			.then((data) => {
+				toast.success("Registration successful! Please log in.");
+				setEmail("");
+				setPassword("");
+				setName("");
+				setRole("user");
+			})
+			.catch((error) => {
+				toast.error("Registration failed. Please try again.");
+				console.error("Registration error:", error);
+			});
 	};
 
 	return (

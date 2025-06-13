@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/contacts";
+const API_URL = `${process.env.REACT_APP_API_BASE_URL}/contacts`;
 
 const fetchContacts = async () => {
 	const token = JSON.parse(sessionStorage.getItem("user")).access_token; // or get it from state/auth slice

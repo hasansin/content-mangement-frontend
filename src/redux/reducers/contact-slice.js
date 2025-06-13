@@ -21,14 +21,30 @@ const contactsSlice = createSlice({
 			})
 			.addCase(fetchContacts.fulfilled, (state, action) => {
 				state.status = "succeeded";
-				state.list = action.payload;
+
+				if (Array.isArray(action.payload)) {
+					state.list = action.payload;
+				} else if (Array.isArray(action.payload?.data)) {
+					// In case it's nested like { data: [...] }
+					state.list = action.payload.data;
+				} else {
+					state.list = [];
+					console.warn("Unexpected payload structure:", action.payload);
+				}
 			})
 			.addCase(fetchContacts.rejected, (state, action) => {
 				state.status = "failed";
 				state.error = action.error.message;
 			})
 			.addCase(addContact.fulfilled, (state, action) => {
-				state.list.push(action.payload);
+				if (action.payload.contact.hasOwnProperty("id")) {
+					state.list.push(action.payload.contact);
+				} else {
+					console.warn(
+						"Invalid payload received from addContact:",
+						action.payload
+					);
+				}
 			})
 			.addCase(editContact.fulfilled, (state, action) => {
 				const index = state.list.findIndex((c) => c.id === action.payload.id);

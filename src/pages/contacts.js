@@ -13,6 +13,7 @@ import {
 	editContact,
 	deleteContact,
 } from "../redux/actions/contact-actions";
+import { toast } from "react-toastify";
 
 const Contact = () => {
 	const navigate = useNavigate();
@@ -34,6 +35,7 @@ const Contact = () => {
 
 	const contactStatus = useSelector((state) => state.contacts.status);
 	const contactError = useSelector((state) => state.contacts.error);
+	const contactList = useSelector((state) => state.contacts.list);
 
 	const openEditModal = (contact) => {
 		setEditingContact(contact);
@@ -53,8 +55,6 @@ const Contact = () => {
 		dispatch(fetchContacts())
 			.unwrap()
 			.then((data) => {
-				setContacts(data.data || []);
-				console.log("Contacts fetched:", data.data);
 				console.log("Contacts fetched successfully:", data);
 			})
 			.catch((error) => {
@@ -65,26 +65,37 @@ const Contact = () => {
 	const editContactData = (contact) => {
 		dispatch(editContact(contact))
 			.unwrap()
-			.then((updatedContact) => {
-				setContacts((prev) =>
-					prev.map((c) => (c.id === updatedContact.id ? updatedContact : c))
-				);
-				dispatch(fetchContacts());
+			.then(() => {
+				// setContacts((prev) =>
+				// 	prev.map((c) => (c.id === contact.id ? contact : c))
+				// );
+				fetchContactsData();
+
+				setIsModalOpen(false);
+				setEditingContact(null);
+				setIsEditing(false);
+
+				toast.success("Contact updated successfully!");
 			})
 			.catch((error) => {
 				console.error("Failed to update contact:", error);
+				toast.error("Failed to update contact. Please try again.");
 			});
 	};
 
 	const addContactData = (contact) => {
 		dispatch(addContact(contact))
 			.unwrap()
-			.then((newContact) => {
-				setContacts((prev) => [...prev, newContact]);
-				dispatch(fetchContacts());
+			.then(() => {
+				// setContacts((prev) => [...prev, newContactFromAPI]);
+				setIsModalOpen(false);
+				setEditingContact(null);
+				setIsEditing(false);
+				fetchContactsData();
+				toast.success("Contact added successfully!");
 			})
 			.catch((error) => {
-				console.error("Failed to add contact:", error);
+				toast.error("Failed to add contact. Please try again.");
 			});
 	};
 
@@ -92,8 +103,12 @@ const Contact = () => {
 		dispatch(deleteContact(id))
 			.unwrap()
 			.then(() => {
-				setContacts((prev) => prev.filter((c) => c.id !== id));
+				// setContacts((prev) => prev.filter((c) => c.id !== id));
+				setIsDeleting(false);
+				setIsModalOpen(false);
+				setDeletingContact(null);
 				dispatch(fetchContacts());
+				toast.success("Contact deleted successfully!");
 			})
 			.catch((error) => {
 				console.error("Failed to delete contact:", error);
@@ -122,7 +137,6 @@ const Contact = () => {
 			addContactData(contact);
 		}
 		setIsModalOpen(false);
-		fetchContactsData();
 	};
 
 	const handleDelete = (id) => {
@@ -133,7 +147,7 @@ const Contact = () => {
 		setIsEditing(false);
 	};
 
-	const filteredContacts = contacts
+	const filteredContacts = contactList
 		.filter((c) =>
 			`${c.name} ${c.email}`.toLowerCase().includes(searchQuery.toLowerCase())
 		)

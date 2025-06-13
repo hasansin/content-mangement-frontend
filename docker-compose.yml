@@ -1,14 +1,57 @@
-version: '3.8'
+version: '3.9'
 
 services:
+  backend:
+    build:
+      context: ../contact-management-backend
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - JWT_SECRET=yourSuperSecretKey
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=contacts_mgt_user
+      - DB_PASSWORD=test
+      - DB_NAME=contacts_mgt_db
+    depends_on:
+      - db
+    networks:
+      - shared-network
+
   frontend:
     build:
       context: .
-      dockerfile: Dockerfile
+    container_name: contact_management_frontend
     ports:
       - "3001:80"
-    volumes:
-      - .:/app
-      - /app/node_modules
     environment:
-      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_API_BASE_URL=http://backend:3000
+    depends_on:
+      - backend
+    networks:
+      - shared-network
+
+  db:
+    image: postgres:14-alpine
+    container_name: postgres-db
+    restart: always
+    environment:
+      - POSTGRES_DB=contacts_mgt_db
+      - POSTGRES_USER=contacts_mgt_user
+      - POSTGRES_PASSWORD=test
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - shared-network
+
+volumes:
+  postgres-data:
+
+networks:
+  shared-network:
+    driver: bridge
