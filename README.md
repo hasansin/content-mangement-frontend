@@ -68,6 +68,31 @@ REACT_APP_API_BASE_URL=http://localhost:3000
 npm run start
 ```
 
+### 5️⃣ Setup the App with docker
+
+
+## 🧰 Prerequisites
+- [Docker](https://www.docker.com/products/docker-desktop) & Docker Compose
+- clone both frontend and contact management backend (NestJS) in single folder
+
+#### 🧪 Build and Start All Services
+
+```bash
+docker-compose up --build
+```
+
+> 📦 This will:
+> - Start the NestJS backend on [http://localhost:3000](http://localhost:3000)
+> - Start PostgreSQL on port `5432`
+> - Start the react frontend on [http://localhost:3001](http://localhost:3001)
+
+#### ⛔️ To Stop Containers
+
+```bash
+docker-compose down -v
+```
+
+---
 
 ### 🔗 API Integration
 The frontend communicates with the backend REST API. You must set the correct REACT_APP_API_BASE_URL to your NestJS server URL.
