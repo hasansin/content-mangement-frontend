@@ -72,13 +72,14 @@ npm run start
 ### 🔗 API Integration
 The frontend communicates with the backend REST API. You must set the correct REACT_APP_API_BASE_URL to your NestJS server URL.
 Example API Endpoints:
-
+```bash
   POST /auth/login – Login
   POST /auth/register – Register
   GET /contacts – Get all contacts
   POST /contacts – Add new contact
   PUT /contacts/:id – Update contact
   DELETE /contacts/:id – Delete contact
+```
   
 All contact-related endpoints require a JWT token from login.
 
