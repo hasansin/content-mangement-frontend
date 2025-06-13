@@ -1,70 +1,107 @@
-# Getting Started with Create React App
+# 🎨 Contact Management Frontend (React + Redux)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the **frontend application** for the Contact Management System. It is built using **React**, styled with **Tailwind CSS**, and uses **Redux Toolkit** for state management. The frontend interacts with a NestJS backend to manage contacts, including creating, editing, deleting, and viewing.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Features
 
-### `npm start`
+- 🔐 User authentication (login, logout)
+- 📝 Create, edit, delete contacts
+- 🔍 Search and filter contacts
+- 📊 Sort and paginate contacts
+- 🎨 Responsive and modern UI
+- 🧠 State management with Redux Toolkit
+- ✅ Form validation and error handling
+- 🔁 Integrated with backend API (NestJS)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📸 Screenshots
+![image](https://github.com/user-attachments/assets/c6c50fbc-f4c6-4795-9463-a68a29fbeb5e)
+![image](https://github.com/user-attachments/assets/0e3d5842-d711-4cab-8897-c75e9a8f2d94)
+![image](https://github.com/user-attachments/assets/651856fa-bef7-451d-b73b-8f8ab92e2b33)
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🧰 Tech Stack
 
-### `npm run build`
+- React
+- Redux Toolkit
+- Tailwind CSS
+- React Icons
+- React Router DOM
+- React Toastify
+- Axios
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## ⚙️ Setup Instructions
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 1️⃣ Clone the Repository
 
-### `npm run eject`
+```bash
+git clone https://github.com/yourusername/contact-management-frontend.git
+cd contact-management-frontend
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 2️⃣ Install Dependencies
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 3️⃣ Create .env File
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+cp .env.example .env
+```
 
-## Learn More
+### 🔐 Example .env
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+REACT_APP_API_BASE_URL=http://localhost:3000
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 4️⃣ Start the App
+```
+npm run start
+```
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 🔗 API Integration
+The frontend communicates with the backend REST API. You must set the correct REACT_APP_API_BASE_URL to your NestJS server URL.
+Example API Endpoints:
 
-### Analyzing the Bundle Size
+  POST /auth/login – Login
+  POST /auth/register – Register
+  GET /contacts – Get all contacts
+  POST /contacts – Add new contact
+  PUT /contacts/:id – Update contact
+  DELETE /contacts/:id – Delete contact
+  
+All contact-related endpoints require a JWT token from login.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 📁 Project Structure
 
-### Making a Progressive Web App
+```bash
+  src/
+  │
+  ├── components/        # Reusable UI components (ContactList, Modal, etc.)
+  ├── pages/             # Main views (e.g., Login, Contacts)
+  ├── redux/             
+  │   ├── actions/       # Async thunks (API calls)
+  │   ├── reducers/      # Redux slices (auth, contacts)
+  │   └── store.js       # Redux store configuration
+  ├── App.js             # Main application entry point
+  ├── index.js           # Renders the app
+  └── assets/            # Static assets (images, logos, etc.)
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+### 🔗 Related Projects
+📦 Contact Management Backend (NestJS) - https://github.com/hasansin/contact-management-backend.git
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
